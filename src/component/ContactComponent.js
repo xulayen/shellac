@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link  } from 'react-router-dom';
 
 class ContactComponent extends React.Component {
 
@@ -8,7 +8,9 @@ class ContactComponent extends React.Component {
         return (
 
             <div>
-                <a href="contact.html">Contact us |</a>
+                <Link to="/contactus">
+                    Contact us |
+                </Link>
                 <a href="#">Privacy Policy | </a>
                 <a href="#">
                     Terms & Conditions</a>

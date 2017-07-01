@@ -5,6 +5,11 @@ class FrameComponent extends React.Component {
         super(props);
     }
 
+
+    handleSubmit(){
+        alert(1)
+    }
+
     render() {
         return (
             <div className="main">
@@ -13,15 +18,19 @@ class FrameComponent extends React.Component {
                          {this.props.nav}
                     </div>
                 </nav>
+
+                {this.props.main}
+
                 <div className="layer_main">
                     <div className="banner">
                             {this.props.banner}
                     </div>
 
-                    <form className="container" method="post" acceptCharset="UTF-8">
+                    <form className="container" onSubmit={this.handleSubmit.bind(this)} method="post" acceptCharset="UTF-8">
+                           {this.props.container}
                         <div className="cn_main">
                             <h2 className="title">
-                                WELCOME
+                                 {this.props.WELCOME}
                             </h2>
                             <div className="cnt">
                                 <div className="cnt_left">
@@ -33,10 +42,9 @@ class FrameComponent extends React.Component {
                                 <div className="clear">
                                 </div>
                             </div>
-
                             <div className="cnt1">
                                 <p>
-                                    Real person confirmation
+                                    {this.props.REAL}
                                 </p>
 
                                 <div className="cnt1_left">
@@ -51,7 +59,6 @@ class FrameComponent extends React.Component {
 
                                 </div>
                             </div>
-
                             <div className="contact">
                                 {this.props.contact}
                             </div>
