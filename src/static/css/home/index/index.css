@@ -1,0 +1,440 @@
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+    #loading-mask
+    {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 150%;
+        z-index: 20000;
+        background-color: #ddd;
+        filter: alpha(opacity=50); /*支持 IE 浏览器*/
+        -moz-opacity: 0.50; /*支持 FireFox 浏览器*/
+        opacity: 0.50; /*支持 Chrome, Opera, Safari 等浏览器*/
+        text-align: center;
+    }
+    #loading
+    {
+        position:absolute;
+        left:45%;
+        top:50%;
+        height: auto;
+        text-align: center;
+    }
+/*PC端*/
+@media screen and (min-width: 768px) {
+  .main {
+    width: 1024px;
+    margin: auto;
+    font-size: 13px;
+    font-family: verdana, sans-serif;
+  }
+  .index-bg-top {
+    background: url("../../../images/bg.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 434px;
+  }
+  .index-bg-top img[title='logo'] {
+    width: 54px;
+    margin-top: 25px;
+    margin-left: 25px;
+    border: none;
+  }
+  .index-bg-top img[title='bg2'] {
+    display: none;
+  }
+  .index-title-content {
+    font-size: 18px;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: 20px 25px 0 25px;
+  }
+  .index-middle-input {
+    margin: 20px 25px 0 25px;
+    color: #3F3F3F;
+  }
+  .index-middle-input .left {
+    float: left;
+    width: 47%;
+  }
+  .index-middle-input .right {
+    float: right;
+    width: 47%;
+  }
+  .index-middle-input .left .input-selectLanguage {
+    height: 65px;
+    background: #404040;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 65px;
+    padding: 0 20px;
+    margin-top: 22px;
+  }
+  .index-middle-input .left .input-selectLanguage .right {
+    text-align: right;
+    /*padding-right: 20px;*/
+    height: 65px;
+  }
+  .index-middle-input .left .input-selectLanguage select {
+    background: none no-repeat scroll 110px 22px #404040;
+    border: none;
+    max-width: 200px;
+    cursor: pointer;
+    appearance: none;
+  }
+  .index-middle-input .right .label {
+    height: 54px;
+    color: #3F3F3F;
+  }
+  .index-middle-input .right input[name='txtCode'] {
+    height: 62px;
+    width: 455px;
+    text-indent: 1em;
+    border: none;
+    border: 1px solid #DBDBDB;
+  }
+  .index-below-action {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .index-below-action .left {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    background: none no-repeat scroll 0 0 #d9d9d9;
+    width: 455px;
+    font-size: 14px;
+    text-align: center;
+    color: #3F3F3F;
+    position: relative;
+    border-bottom-left-radius: 28px;
+    border-top-left-radius: 28px;
+  }
+  .index-below-action .left .label {
+    position: absolute;
+    left: 0px;
+    top: -2px;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: red;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    background: none no-repeat scroll 0 0 #ffffff;
+    cursor: pointer;
+    border: 2px solid #D9D9D9;
+  }
+  .index-below-action .right {
+    float: right;
+  }
+  .index-below-action .right [type='button'],.index-below-action .right [type='submit'] {
+    width: 455px;
+    height: 61px;
+    background: none no-repeat scroll 0 0 #fbcb07;
+    color: #3f3f3f;
+    border: none;
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  .index-foot-item {
+    padding-left: 25px;
+    padding-right: 25px;
+    line-height: 24px;
+    color: #3F3F3F;
+  }
+  .index-foot-item a {
+    text-decoration: none;
+    color: #3F3F3F;
+  }
+    
+    #loading
+    {
+        left:45%;
+    }
+}
+/*Mobile端*/
+@media screen and (max-width: 767px) {
+  .main {
+    font-size: 13px;
+    font-family: verdana, sans-serif;
+  }
+  .index-bg-top img[title='bg2'] {
+    width: 100%;
+    /*height: 100%;*/
+  }
+  .index-bg-top .logo img {
+    display: none;
+  }
+  .index-title-content {
+    font-size: 18px;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: 20px 25px 0 25px;
+    text-align: center;
+  }
+  .index-middle-input .left p {
+    margin-top: 10px;
+    text-align: center;
+    padding: 0 4px;
+  }
+  .index-middle-input .left .input-selectLanguage {
+    height: 65px;
+    background: #404040;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 65px;
+    padding: 0 20px;
+    margin-top: 22px;
+  }
+  .index-middle-input .left .input-selectLanguage .right {
+    text-align: right;
+    /*padding-right: 20px;*/
+    height: 65px;
+  }
+  .index-middle-input .left .input-selectLanguage .right select {
+    background: #fff;
+    cursor: pointer;
+    border: none;
+    max-width: 200px;
+    color: #000;
+  }
+  .index-middle-input .left .input-selectLanguage .left {
+    position: absolute;
+    
+  }
+  .index-middle-input .left .input-selectLanguage .left select
+  {
+      color:#000;
+      background-color:#fff;
+      border: none;
+  }
+  .index-middle-input .right {
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  
+ .index-middle-input .input-selectLanguage .right
+ {
+     padding-right:0px;
+ }
+  .index-middle-input .right .label {
+    padding: 10px 4px;
+    color: #3F3F3F;
+    text-align: center;
+  }
+  .index-middle-input .right input[name='txtCode'] {
+    border: none;
+    border: 1px solid #DBDBDB;
+    height: 33px;
+    width: 100%;
+    text-align: center;
+  }
+  .index-below-action {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .index-below-action .left {
+    height: 30px;
+    line-height: 30px;
+    background: none no-repeat scroll 0 0 #d9d9d9;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    color: #3F3F3F;
+    position: relative;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  .index-below-action .left .label {
+    position: absolute;
+    left: 0px;
+    top: -2px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: red;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    background: none no-repeat scroll 0 0 #ffffff;
+    cursor: pointer;
+    border: 2px solid #D9D9D9;
+  }
+  .index-below-action .right {
+    margin-top: 20px;
+  }
+  .index-below-action .right [type='button'],.index-below-action .right [type='submit'] {
+    width: 100%;
+    height: 60px;
+    background: none no-repeat scroll 0 0 #fbcb07;
+    color: #3f3f3f;
+    border: none;
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  .index-foot-item {
+    font-size: 12px;
+    text-align: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    line-height: 24px;
+    color: #3F3F3F;
+  }
+  .index-foot-item a {
+    text-decoration: none;
+    color: #3F3F3F;
+  }
+    #loading
+    {
+        left:46%;
+    }
+}
+/*ipad端*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    width: 768px;
+    margin: auto;
+    font-size: 13px;
+    font-family: verdana, sans-serif;
+  }
+  .index-bg-top {
+    background: url("../../../images/bg.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    background-size: 100%;
+    height: 334px;
+  }
+  .index-bg-top img[title='logo'] {
+    width: 54px;
+    margin-top: 25px;
+    margin-left: 25px;
+    border: none;
+  }
+  .index-bg-top img[title='bg2'] {
+    display: none;
+  }
+  .index-title-content {
+    font-size: 18px;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: 20px 25px 0 25px;
+  }
+  .index-middle-input {
+    margin: 20px 25px 0 25px;
+    color: #3F3F3F;
+  }
+  .index-middle-input .left {
+    float: left;
+    width: 49%;
+  }
+  .index-middle-input .right {
+    float: right;
+    width: 44%;
+  }
+  .index-middle-input .left p {
+    height: 49px;
+  }
+  .index-middle-input .left .input-selectLanguage {
+    height: 65px;
+    background: #404040;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 65px;
+    padding: 0 20px;
+    margin-top: 22px;
+  }
+  
+  .index-middle-input .left .input-selectLanguage .left {
+        width:30%;
+  }
+  .index-middle-input .left .input-selectLanguage .right {
+    text-align: right;
+    /*padding-right: 20px;*/
+    height: 65px;
+    width:65%;
+  }
+  .index-middle-input .left .input-selectLanguage select {
+    background: none no-repeat scroll 110px 22px #404040;
+    border: none;
+    max-width: 200px;
+    cursor: pointer;
+    appearance: none;
+  }
+  .index-middle-input .right .label {
+    height: 54px;
+    color: #3F3F3F;
+  }
+  .index-middle-input .right input[name='txtCode'] {
+    height: 62px;
+    width: 314px;
+    text-indent: 1em;
+    border: none;
+    border: 1px solid #DBDBDB;
+    margin-top: 17px;
+  }
+  .index-below-action {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .index-below-action .left {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    background: none no-repeat scroll 0 0 #d9d9d9;
+    width: 350px;
+    font-size: 14px;
+    text-align: center;
+    color: #3F3F3F;
+    position: relative;
+    border-bottom-left-radius: 28px;
+    border-top-left-radius: 28px;
+  }
+  .index-below-action .left .label {
+    position: absolute;
+    left: 0px;
+    top: -2px;
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: red;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    background: none no-repeat scroll 0 0 #ffffff;
+    cursor: pointer;
+    border: 2px solid #D9D9D9;
+  }
+  .index-below-action .right {
+    float: right;
+  }
+  .index-below-action .right [type='button'],.index-below-action .right [type='submit'] {
+    width: 317px;
+    height: 61px;
+    background: none no-repeat scroll 0 0 #fbcb07;
+    color: #3f3f3f;
+    border: none;
+    font-size: 15px;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  .index-foot-item {
+    padding-left: 25px;
+    padding-right: 25px;
+    line-height: 24px;
+    color: #3F3F3F;
+  }
+  .index-foot-item a {
+    text-decoration: none;
+    color: #3F3F3F;
+  }
+    #loading
+    {
+        left:45%;
+    }
+}

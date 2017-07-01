@@ -1,0 +1,565 @@
+//字体大小
+@fs: 13px;
+//字体
+@ff: verdana, sans-serif;
+//最大宽度
+@max-w: 1024px;
+//背景图片最大高度
+@img-h: 434px;
+//logo显示的宽度
+@logo-w: 54px;
+//logo的左、上边距
+@logo-l-t: 25px;
+//整体左右边距
+@content-l-r: 25px;
+
+.borderRadius(@radius:15px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+#loading-mask
+    {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 150%;
+        z-index: 20000;
+        background-color: #ddd;
+        filter: alpha(opacity=50); /*支持 IE 浏览器*/
+        -moz-opacity: 0.50; /*支持 FireFox 浏览器*/
+        opacity: 0.50; /*支持 Chrome, Opera, Safari 等浏览器*/
+        text-align: center;
+    }
+    #loading
+    {
+        position:absolute;
+        left:45%;
+        top:50%;
+        height: auto;
+        text-align: center;
+    }
+
+/*PC端*/
+@media screen and (min-width: 768px) {
+  //主体
+  .main {
+    width: @max-w;
+    margin: auto;
+    font-size: @fs;
+    font-family: @ff;
+  }
+
+  //头部（背景、logo）
+  .index-bg-top {
+    background: url("../../../images/bg.jpg") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: @img-h;
+    img[title='logo'] {
+      width: @logo-w;
+      margin-top: @logo-l-t;
+      margin-left: @logo-l-t;
+      border: none;
+    }
+    img[title='bg2'] {
+      display: none;
+    }
+  }
+
+  //主要部分布局
+  .index-title-content {
+    font-size: @fs+5;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: (@content-l-r)-5 @content-l-r 0 @content-l-r;
+  }
+
+  //输入框、slider部分布局
+  .index-middle-input {
+    margin: (@content-l-r)-5 @content-l-r 0 @content-l-r;
+    color: #3F3F3F;
+    .left {
+      float: left;
+      width: 47%;
+    }
+    .right {
+      float: right;
+      width: 47%;
+    }
+  }
+
+  //行高（实现垂直居中）、元素的高
+  @line-h: 65px;
+  //元素的宽
+  @item-w: 455px;
+  //输入框、slider部分
+  .index-middle-input {
+    .left {
+      .input-selectLanguage {
+        @selectLanguage-bc: #404040;
+        height: @line-h;
+        background: @selectLanguage-bc;
+        color: #FFF;
+        font-size: @fs;
+        line-height: @line-h;
+        padding: 0 20px;
+        margin-top: 22px;
+        .right {
+          text-align: right;
+          //padding-right: 20px;
+          height: @line-h;
+          //background: url("../../../images/selectLanguageLeft.png") no-repeat scroll 200px 22px rgba(0, 0, 0, 0);
+        }
+        select {
+          background: none no-repeat scroll 110px 22px @selectLanguage-bc;
+          border: none;
+          max-width: 200px;
+          //height: @line-h;
+          cursor: pointer;
+          appearance: none;
+          //          -webkit-appearance: none;
+          //          -moz-appearance: none;
+          //          -ms-appearance: none;
+        }
+      }
+    }
+    .right {
+      .label {
+        height: 54px;
+        color: #3F3F3F;
+      }
+      input[name='txtCode'] {
+        height: @line-h - 3;
+        width: @item-w;
+        text-indent: 1em;
+        border: none;
+        border: 1px solid #DBDBDB;
+      }
+    }
+  }
+
+  //脚部部分布局
+  .index-below-action {
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    @sliderButton-pos: 0px;
+    .left {
+      float: left;
+      height: @line-h - 5;
+      line-height: @line-h - 5;
+      background: none no-repeat scroll 0 0 #D9D9D9;
+      width: @item-w;
+      font-size: @fs + 1;
+      text-align: center;
+      color: #3F3F3F;
+      position: relative;
+      border-bottom-left-radius: 28px;
+      border-top-left-radius: 28px;
+      .label {
+        position: absolute;
+        left: -@sliderButton-pos;
+        top: -2px;
+        display: block;
+        width: @line-h - 5;
+        height: @line-h - 5;
+        background: red;
+        .borderRadius((@line-h - 5)/2);
+        background: none no-repeat scroll 0 0 #FFF;
+        cursor: pointer;
+        border: 2px solid #D9D9D9;
+      }
+    }
+    .right {
+      float: right;
+      [type='button'] {
+        width: @item-w;
+        height: @line-h - 4;
+        background: none no-repeat scroll 0 0 #FBCB07;
+        color: #3f3f3f;
+        border: none;
+        font-size: @fs + 2;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    }
+    .slider {
+      //      border-radius: 25px;
+      //      -webkit-border-radius: 25px;
+      //      -moz-border-radius: 25px;
+    }
+  }
+
+  //脚部菜单和声明
+  .index-foot-item {
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    line-height: 24px;
+    color: #3F3F3F;
+    a {
+      text-decoration: none;
+      color: #3F3F3F;
+
+    }
+  }
+
+    #loading
+    {
+        left:46%;
+    }
+}
+
+/*Mobile端*/
+@media screen and (max-width: 767px) {
+  .main {
+	font-size: @fs;
+    font-family: @ff;
+  }
+
+  //头部（背景、logo）
+  .index-bg-top {
+    img[title='bg2'] {
+      width: 100%;
+      //height: 100%;
+    }
+    .logo {
+      img {
+        display: none;
+      }
+    }
+  }
+
+  //标题
+  .index-title-content {
+    font-size: @fs+5;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: (@content-l-r)-5 @content-l-r 0 @content-l-r;
+    text-align: center;
+  }
+
+  //行高（实现垂直居中）、元素的高
+  @line-h: 65px;
+  //元素的宽
+  @item-w: 455px;
+  //输入框、选择框
+  .index-middle-input {
+    .left {
+      p {
+        margin-top: 10px;;
+        text-align: center;
+        padding: 0 4px;
+      }
+      .input-selectLanguage {
+        @selectLanguage-bc: #404040;
+        height: @line-h;
+        background: @selectLanguage-bc;
+        color: #FFF;
+        font-size: @fs;
+        line-height: @line-h;
+        padding: 0 20px;
+        margin-top: 22px;
+        .right {
+          text-align: right;
+          padding-right: 0px;
+          height: @line-h;
+          //background: url("../../../images/selectLanguageLeft.png") no-repeat scroll 100% 22px rgba(0, 0, 0, 0);
+          select {
+            background: @selectLanguage-bc;
+            //                        appearance: none;
+            //                        -webkit-appearance: none;
+            //                        -moz-appearance: none;
+            //                        -ms-appearance: none;
+            cursor: pointer;
+            border: none;
+            //height: @line-h - 2;
+            max-width: 200px;
+			color: #000;
+          }
+        }
+        .left {
+          position: absolute;
+		  select{
+			color:#000;
+			background-color:#fff;
+			border: none;
+		  }
+        }
+
+      }
+    }
+
+    .right {
+      margin-top: 10px;
+      padding-left: @content-l-r;
+      padding-right: @content-l-r;
+      .label {
+        padding: 10px 4px;
+        color: #3F3F3F;
+        text-align: center;
+      }
+      input[name='txtCode'] {
+        border: none;
+        border: 1px solid #DBDBDB;
+        height: 33px;
+        width: 100%;
+        text-align: center;
+
+      }
+    }
+  }
+
+  //滑动条和按钮
+  .index-below-action {
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    @sliderButton-pos: 0px;
+    .left {
+      height: (@line-h - 5)/2;
+      line-height: (@line-h - 5)/2;
+      background: none no-repeat scroll 0 0 #D9D9D9;
+      width: 100%;
+      font-size: @fs + 1;
+      text-align: center;
+      color: #3F3F3F;
+      position: relative;
+      //.borderRadius();
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
+      .label {
+        position: absolute;
+        left: -@sliderButton-pos;
+        top: -2px;
+        display: block;
+        width: (@line-h - 5)/2;
+        height: (@line-h - 5)/2;
+        background: red;
+        .borderRadius((@line-h - 5)/2/2);
+        background: none no-repeat scroll 0 0 #FFF;
+        cursor: pointer;
+        border: 2px solid #D9D9D9;
+      }
+    }
+    .right {
+      margin-top: 20px;
+      [type='button'] {
+        width: 100%;
+        height: @line-h - 5;
+        background: none no-repeat scroll 0 0 #FBCB07;
+        color: #3f3f3f;
+        border: none;
+        font-size: @fs + 2;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    }
+  }
+
+  //脚部菜单和声明
+  .index-foot-item {
+    font-size: @fs - 1;
+    text-align: center;
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    line-height: 24px;
+    color: #3F3F3F;
+    a {
+      text-decoration: none;
+      color: #3F3F3F;
+
+    }
+  }
+     
+    #loading
+    {
+        left:40%;
+    }
+
+}
+
+/*ipad端*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  //主体
+  .main {
+    width: 768px;
+    margin: auto;
+    font-size: @fs;
+    font-family: @ff;
+  }
+
+  //头部（背景、logo）
+  .index-bg-top {
+    background: url("../../../images/bg.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    background-size: 100%;
+    height: @img-h - 100px;
+    img[title='logo'] {
+      width: @logo-w;
+      margin-top: @logo-l-t;
+      margin-left: @logo-l-t;
+      border: none;
+    }
+    img[title='bg2'] {
+      display: none;
+    }
+  }
+
+  //主要部分布局
+  .index-title-content {
+    font-size: @fs+5;
+    color: #DD1D20;
+    font-weight: bold;
+    margin: (@content-l-r)-5 @content-l-r 0 @content-l-r;
+  }
+
+  //输入框、slider部分布局
+  .index-middle-input {
+    margin: (@content-l-r)-5 @content-l-r 0 @content-l-r;
+    color: #3F3F3F;
+    .left {
+      float: left;
+      width: 49%;
+    }
+    .right {
+      float: right;
+      width: 44%;
+    }
+  }
+
+  //行高（实现垂直居中）、元素的高
+  @line-h: 65px;
+  //元素的宽
+  @item-w: 355px;
+  //输入框、slider部分
+  .index-middle-input {
+    .left {
+      p {
+        height: 49px;
+      }
+
+      .input-selectLanguage {
+        @selectLanguage-bc: #404040;
+        height: @line-h;
+        background: @selectLanguage-bc;
+        color: #FFF;
+        font-size: @fs;
+        line-height: @line-h;
+        padding: 0 20px;
+        margin-top: 22px;
+        .right {
+          text-align: right;
+          //padding-right: 20px;
+          height: @line-h;
+          //background: url("../../../images/selectLanguageLeft.png") no-repeat scroll 200px 22px rgba(0, 0, 0, 0);
+        }
+        select {
+          background: none no-repeat scroll 110px 22px @selectLanguage-bc;
+          border: none;
+          max-width: 200px;
+          //height: @line-h;
+          cursor: pointer;
+          appearance: none;
+          //          -webkit-appearance: none;
+          //          -moz-appearance: none;
+          //          -ms-appearance: none;
+        }
+		left{
+			width:30%;
+		}
+		right{
+			width:65px;
+		}
+      }
+    }
+    .right {
+      .label {
+        height: 54px;
+        color: #3F3F3F;
+      }
+      input[name='txtCode'] {
+        height: @line-h - 3;
+        width: 314px;
+        text-indent: 1em;
+        border: none;
+        border: 1px solid #DBDBDB;
+        margin-top: 17px;
+      }
+    }
+  }
+
+  //脚部部分布局
+  .index-below-action {
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    @sliderButton-pos: 0px;
+    .left {
+      float: left;
+      height: @line-h - 5;
+      line-height: @line-h - 5;
+      background: none no-repeat scroll 0 0 #D9D9D9;
+      width: 350px;
+      font-size: @fs + 1;
+      text-align: center;
+      color: #3F3F3F;
+      position: relative;
+      border-bottom-left-radius: 28px;
+      border-top-left-radius: 28px;
+      .label {
+        position: absolute;
+        left: -@sliderButton-pos;
+        top: -2px;
+        display: block;
+        width: @line-h - 5;
+        height: @line-h - 5;
+        background: red;
+        .borderRadius((@line-h - 5)/2);
+        background: none no-repeat scroll 0 0 #FFF;
+        cursor: pointer;
+        border: 2px solid #D9D9D9;
+      }
+    }
+    .right {
+      float: right;
+      [type='button'] {
+        width: 317px;
+        height: @line-h - 4;
+        background: none no-repeat scroll 0 0 #FBCB07;
+        color: #3f3f3f;
+        border: none;
+        font-size: @fs + 2;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    }
+    .slider {
+      //      border-radius: 25px;
+      //      -webkit-border-radius: 25px;
+      //      -moz-border-radius: 25px;
+    }
+  }
+
+  //脚部菜单和声明
+  .index-foot-item {
+    padding-left: @content-l-r;
+    padding-right: @content-l-r;
+    line-height: 24px;
+    color: #3F3F3F;
+    a {
+      text-decoration: none;
+      color: #3F3F3F;
+
+    }
+  }
+     
+    #loading
+    {
+        left:45%;
+    }
+}
+
