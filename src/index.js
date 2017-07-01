@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {IndexComponent} from './component/index/indexComponent';
 import {ContactUsComponent} from './component/contactus/ContactUsComponent';
 import {InvalidComponent} from './component/invalid/InvalidComponent';
+import {FeedBackComponent} from './component/feedback/FeedBackComponent';
 import {nav} from './static/script/plugins/nav.js'
 import { Slider } from './static/script/plugins/Slider.js';
 import $ from 'jquery';
@@ -28,6 +29,7 @@ ReactDOM.render(
             <Route exact path="/index" component={IndexComponent}/>
             <Route exact path="/contactus" component={ContactUsComponent}/>
             <Route exact path="/invalid" component={InvalidComponent}/>
+            <Route exact path="/feedback" component={FeedBackComponent}/>
         </div>
     </BrowserRouter>)
     , document.getElementById('root'));
