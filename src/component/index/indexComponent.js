@@ -9,9 +9,69 @@ import {HeaderComponent} from '../HeaderComponent';
 import {BannerComponent} from '../BannerComponent';
 import { ContactComponent } from '../ContactComponent';
 import { CopyRightComponent } from '../CopyRightComponent';
+import  request from 'superagent';
+
+//http://www.open-open.com/lib/view/open1481164240760.html
+//http://visionmedia.github.io/superagent/
 
 
 class IndexComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            country: 'us',
+            language: 'en',
+            digitcode: "",
+            realperson: '0'
+
+        }
+    }
+
+
+    handleData(e) {
+        var eleId = e.target.id;
+        if (eleId == 'label' || eleId == 'pageSlide') {
+            if (this.captcha.value == '1') {
+                this.setState({
+                    realperson: '1'
+                })
+            }
+        } else if (eleId == 'txtCode') {
+            this.setState({
+                digitcode: e.target.value
+            })
+        }
+    }
+
+
+    handleSubmit(event) {
+        event.preventDefault();
+        request
+            .post('http://10.20.26.19/shell2/Ajax/FWAcCode.ashx')
+            .type('form')
+            .send({
+                language: 'en',
+                country: 'us',
+                channelType: 'W',
+                channel: '1',
+                accode: '11111111111111111'
+            })
+            .end(function (err, res) {
+                console.log(err)
+                console.log(res)
+            });
+    }
+
+
+    componentDidMount() {
+        console.log("componentDidMount");
+    }
+
+    componentWillUnmount() {
+        console.log(2)
+    }
 
     render() {
         return (
@@ -23,7 +83,7 @@ class IndexComponent extends React.Component {
                     <div className="banner">
                         <BannerComponent/>
                     </div>
-                    <form className="container" action method="post" acceptCharset="UTF-8">
+                    <form className="container" onSubmit={this.handleSubmit.bind(this)} action method="post" acceptCharset="UTF-8">
                         <div className="cn_main">
                             <h2 className="title">
                                 WELCOME</h2>
@@ -62,71 +122,10 @@ class IndexComponent extends React.Component {
                                         </div>
                                     </div>
                                     <div className="countryContainer none">
-                                        <ul className="select_flag" id="flags">
-                                            <li>
-                                                <img src="static/images/start.png" />
-                                                China</li>
-                                            <li>
-                                                <img src="static/images/afh.png" />
-                                                Colombia</li>
-                                            <li>
-                                                <img src="static/images/ymny.png" />
-                                                Indonesia</li>
-                                            <li>
-                                                <img src="static/images/yd.png" />
-                                                Malaysia</li>
-                                            <li>
-                                                <img src="static/images/start.png" />
-                                                Pakistan</li>
-                                            <li>
-                                                <img src="static/images/afh.png" />
-                                                Russia</li>
-                                            <li>
-                                                <img src="static/images/ymny.png" />
-                                                Argentina</li>
-                                            <li>
-                                                <img src="static/images/yd.png" />
-                                                Brazil</li>
-                                            <li>
-                                                <img src="static/images/start.png" />
-                                                Thailand</li>
-                                            <li>
-                                                <img src="static/images/afh.png" />
-                                                Vietnam</li>
-                                            <li>
-                                                <img src="static/images/ymny.png" />
-                                                Turkey</li>
-                                            <li>
-                                                <img src="static/images/yd.png" />
-                                                Arabiac</li>
-                                            <li>
-                                                <img src="static/images/ymny.png" />
-                                                伊拉克</li>
-                                            <li>
-                                                <img src="static/images/afh.png" />
-                                                Казахстан</li>
-                                            <li>
-                                                <img src="static/images/ymny.png" />
-                                                South Africa</li>
-                                        </ul>
                                     </div>
                                     <div className="countryContainer1 none">
-                                        <ul id="_select">
-                                            <li>Mandarin</li>
-                                            <li>Spanish</li>
-                                            <li>Bahasa Indonesia</li>
-                                            <li>Urdu</li>
-                                            <li>Russian</li>
-                                            <li>Spanish</li>
-                                            <li>Portuguese</li>
-                                            <li>Thai</li>
-                                            <li>Vietnamese</li>
-                                            <li>Turkish</li>
-                                            <li>Arabia</li>
-                                            <li>阿拉伯语</li>
-                                            <li>俄罗斯语</li>
-                                            <li>English</li>
-                                        </ul>
+
+
                                     </div>
                                 </div>
                                 <div className="cnt_right">
@@ -137,8 +136,8 @@ class IndexComponent extends React.Component {
                                         <br/>
                                         16 digit Anti-Counterfeit Code
                                     </p>
-                                    <input type="text" placeholder="Scan the QR code to skip manual input" className="inpt"
-                                        maxLength="16" />
+                                    <input id="txtCode" type="text" onChange={this.handleData.bind(this)} placeholder="Scan the QR code to skip manual input" className="inpt"
+                                        maxLength="16" value={this.state.digitcode} />
                                     <p className="err_tip">
                                         ERROR! You have entered an incorrect code.(Please try again)</p>
                                     <div className="gif">
@@ -153,9 +152,11 @@ class IndexComponent extends React.Component {
                                     Real person confirmation</p>
                                 <div className="cnt1_left">
                                     <div className="slide_cnt index-below-action">
-                                        <div id="slider" className="slider left">
+                                        <div id="slider" onMouseMove={this.handleData.bind(this)} id="slider" className="slider left">
                                             <div id="pageSlide">
-                                                <input id="captcha" className="valid" type="hidden"  value="0"/>
+                                                <input id="captcha" className="valid" type="hidden" ref={(captcha)=>
+                                                    this.captcha = captcha
+                                                    }  value="0"/>
                                                 <span id="label" className="label"></span>
                                                 <span id="lableTip">SLIDE to confirm you are human</span>
                                             </div>
@@ -163,7 +164,7 @@ class IndexComponent extends React.Component {
                                     </div>
                                 </div>
                                 <div className="cnt1_right">
-                                    <input type="button" value="Submit" className="sub"/>
+                                    <input type="submit" value="Submit" className="sub"/>
                                 </div>
                                 <div className="clear">
                                 </div>

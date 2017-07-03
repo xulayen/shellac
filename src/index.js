@@ -14,6 +14,8 @@ import {  BrowserRouter,Route,Link,Switch  } from 'react-router-dom';
 //npm install -S react-router
 //npm install react-router --save
 //npm install react-router-dom  --save
+//npm install --save isomorphic-fetch es6-promise(superagent代替)
+//npm install superagent
 
 //import $ from 'jquery'
 

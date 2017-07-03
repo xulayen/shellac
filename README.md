@@ -5,6 +5,15 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
+
+- 用到的库
+- npm install jquery --save
+- mpm install swipe --save
+- npm install -S react-router
+- npm install react-router --save
+- npm install react-router-dom  --save
+- npm install superagent
+
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
