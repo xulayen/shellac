@@ -3,17 +3,21 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-## Table of Contents
-
-
-- 用到的库
+##用到的库
 - npm install jquery --save
 - mpm install swipe --save
 - npm install -S react-router
-- npm install react-router --save
-- npm install react-router-dom  --save
+- npm install --save react-router@3.0.0
 - npm install superagent
+- npm start
 
+##项目搭建
+- npm install -g create-react-app
+- create-react-app my-app
+- cd my-app
+- npm start
+
+## Table of Contents
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
