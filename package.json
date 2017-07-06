@@ -13,7 +13,20 @@
     "swiper": "^3.4.2"
   },
   "devDependencies": {
-    "react-scripts": "1.0.8"
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-less": "^3.3.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-uglify": "^3.0.0",
+    "react-scripts": "1.0.8",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

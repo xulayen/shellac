@@ -1,0 +1,290 @@
+var gulp = require('gulp'),
+    concat = require('gulp-concat'),
+    less = require('gulp-less'),
+    minifyCss = require('gulp-minify-css'),
+    minify = require('gulp-minify'),
+    zip = require('gulp-zip'),
+    moment = require("moment"),
+    ftp = require('gulp-ftp'),
+    git = require('gulp-git'),
+    runSequence = require('run-sequence'),
+    argv = require('minimist')(process.argv.slice(2)),
+    argv = require('minimist')(process.argv.slice(2)),
+    del = require('del'),
+    uglify = require('gulp-uglify'),
+    htmlmin = require('gulp-htmlmin'),
+    ngAnnotate = require('gulp-ng-annotate');
+
+
+var path = {
+    input: {
+        html: ['src/app/*.html'],
+        js: ['src/app/js/*.js'],
+        less: ['src/app/less/*.less'],
+        image: ['src/app/image/*'],
+        fonts: ['src/app/fonts/*'],
+        plugins: ['src/plugins/**/*']
+    },
+    output: {
+        dist: 'dist',
+        plugins: 'dist/plugins'
+    }
+}
+
+
+
+gulp.task('commit', function(){
+    return gulp.src('./demo/**/*')
+        .pipe(git.add())
+        .pipe(git.commit());
+});
+
+
+gulp.task('checkout',[commit], function () {
+    gitTag = argv.tag;
+    git.checkout(gitTag, function (err) {
+        if (err) throw err;
+    });
+})
+
+//压缩html
+gulp.task('html', function () {
+    var options = {
+        removeComments: true,
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeEmptyAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        minifyJS: true,
+        minifyCSS: true
+    };
+    return gulp.src(config.input.html)
+        .pipe(htmlmin(options))
+        .pipe(gulp.dest(config.output.dist))//gulp dest是输出
+});
+
+
+//压缩合并JS
+gulp.task('js', function (done) {
+    return gulp.src(config.input.js)
+        .pipe(ngAnnotate({single_quotes: true}))
+        .pipe(uglify())
+        .pipe(concat('index.min.js'))
+        .pipe(gulp.dest(config.output.dist))
+});
+
+
+gulp.task('zip_new', function () {
+    var timeStamp = moment().format("YYYY-MM-D_HH-mm-ss_");
+    return gulp.src(config.input.zip)
+        .pipe(zip("dist_" + timeStamp + ".zip"))
+        .pipe(gulp.dest(config.output.dist));
+});
+
+//发送至指定服务器
+gulp.task('ftp', function () {
+    gulp.src("dist_zip/*")
+        .pipe(ftp({
+            host: 'someHost',
+            port: 21,
+            //user: 'anonymous',
+            //pass:null,
+            remotePath: "somePath/"
+        }));
+});
+
+//一键打包
+gulp.task('publish', function (callback) {
+    runSequence(['html', 'js','less', 'copy'],'zip_new',ftp,callback);
+});
+
+
+
+
+///////////////////////////////////////////////////////////
+//import gulp from 'gulp';
+var gulp = require('gulp');
+import fileConfig from 'FileConfig';
+// 说明
+
+gulp.task('help', function () {
+
+    console.log('	gulp build			文件打包');
+
+    console.log('	gulp watch			文件监控打包');
+
+    console.log('	gulp help			gulp参数说明');
+
+    console.log('	gulp server			测试server');
+
+    console.log('	gulp -p				生产环境（默认生产环境）');
+
+    console.log('	gulp -d				开发环境');
+
+    console.log('	gulp -m <module>		部分模块打包（默认全部打包）');
+
+});
+
+/* 默认 */
+gulp.task('default', function () {
+
+    gulp.start('help');
+
+});
+
+
+/* 载入工具 */
+var argv = require('yargs').argv,
+    _ = require('lodash'),
+    path = require('path');
+
+
+//创建任务
+gulp.task('build', function () {
+
+    var evr = argv.p || !argv.d; //生产环境为true，开发环境为false，默认为true
+
+    var mod = argv.m || 'all';//模块明，默认为全部
+
+
+    /* 路径初始化 */
+
+    fileConfig.init(evr);
+    //console.log('            '+evr)
+    //console.log('            '+mod)
+
+
+});
+
+
+
+gulp.task('clean', function() {
+
+    if(mod === 'all') {
+
+        var clean_path = path.join( evr&& basePath.production || basePath.develop, '/');
+
+        return gulp.src([clean_path], {read:false})
+
+            .pipe(clean());
+
+    }
+
+});
+
+
+// 载入外挂
+
+var browserify = require('browserify'),//这里用不上，管理js依赖的
+
+    source = require('vinyl-source-stream'),//同样这里用不上，和上面那个一起的
+
+    uglify = require('gulp-uglify'),//混淆js
+
+    clean = require('gulp-clean'),//清理文件
+
+    notify = require('gulp-notify'),//加控制台文字描述用的
+
+    buffer = require('vinyl-buffer'),
+
+    less = require('gulp-less'),//转换less用的
+
+    autoprefixer = require('gulp-autoprefixer'),//增加私有变量前缀
+
+    minifycss = require('gulp-minify-css'),//压缩
+
+    concat = require('gulp-concat'),//合并
+
+    fileinclude = require('gulp-file-include'),// include 文件用
+
+    template = require('gulp-template'),//替换变量以及动态html用
+
+    rename = require('gulp-rename'),//重命名
+
+    webserver = require('gulp-webserver'),//一个简单的server，用python的SimpleHttpServer会锁文件夹
+
+    imagemin = require('gulp-imagemin'),//图片压缩
+
+    gulpif = require('gulp-if'),//if判断，用来区别生产环境还是开发环境的
+
+    rev = require('gulp-rev'),//加MD5后缀
+
+    revReplace = require('gulp-rev-replace'),//替换引用的加了md5后缀的文件名，修改过，用来加cdn前缀
+
+    addsrc = require('gulp-add-src'),//pipeline中途添加文件夹，这里没有用到
+
+    del = require('del'),//也是个删除···
+
+    vinylPaths = require('vinyl-paths'),//操作pipe中文件路径的，加md5的时候用到了
+
+    runSequence = require('run-sequence');//控制task顺序
+
+
+/* 打包方法 */
+
+var teemoGulp = {
+
+    /* html打包 */
+
+    buildHtml: function () {
+        var src = arguments[0], dest = arguments[1], flag = arguments[2], options = arguments[3];
+
+        return gulp.src(src)
+
+            .pipe(fileinclude({
+
+                basepath: basePath.source
+
+            }))
+
+            .pipe(template(options, {
+
+                //interpolate: /\{-([\s\S]+?)-\}/g
+
+            }))
+
+            .pipe(gulp.dest(dest))
+
+    },
+
+    /* css 打包 */
+
+    buildCss: function () {
+    },
+
+    /* js打包 */
+
+    buildJs: function () {
+        var src = arguments[0], dest = arguments[1], flag = arguments[2]
+
+        return gulp.src(src)
+
+            .pipe(gulp.dest(dest))
+
+
+            .pipe(uglify())
+
+            .pipe(rename({suffix: '.min'}))
+
+            .pipe(gulp.dest(dest));
+    },
+
+    /* img打包 */
+
+    buildImg: function () {
+        var src = arguments[0], dest = arguments[1], flag = arguments[2]
+
+        return gulp.src(src)
+
+            .pipe(gulpif(flag, imagemin()))
+
+            .pipe(gulp.dest(dest));
+    },
+
+    /* md5打包 */
+
+    buildMd5: function () {
+    }
+
+}
