@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-##用到的库
+## 用到的库
 - npm install jquery --save
 - mpm install swipe --save
 - npm install -S react-router
@@ -11,11 +11,31 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - npm install superagent
 - npm start
 
-##项目搭建
+## 项目搭建
 - npm install -g create-react-app
 - create-react-app my-app
 - cd my-app
 - npm start
+
+## 打包工具用到的库
+- gulp 本地安装gulp所用到的地方
+- gulp-less 编译Less
+- gulp-if if判断，用来区别生产环境还是开发环境的
+- gulp-minify-css 压缩css
+- gulp-imagemin 图片压缩
+- gulp-rename 文件重命名
+- gulp-concat 文件合并
+- gulp-rev 更改版本号
+- gulp-clean  删除
+- gulp-htmlmin html压缩
+- run-sequence 队列
+- gulp-uglify 混淆js
+- gulp-watch 监视
+- gulp-rev-collector 静态资源替换
+- gulp-webpack
+- webpack 打包工具
+- gulp-connect 运行一个服务
+
 
 ## Table of Contents
 - [Updating to New Releases](#updating-to-new-releases)
