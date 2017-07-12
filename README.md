@@ -36,7 +36,6 @@ You can find the most recent version of this guide [here](https://github.com/fac
         }
     ```
 - npm install jquery swipe react-router react-router@3.0.0 superagent --save-dev
-- npm start
 
 ## 用到的库
 - npm install jquery --save-dev
@@ -70,6 +69,51 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - webpack 打包工具
 - gulp-connect 运行一个服务
 
+## gilpfile.js
+- 先弄一个简易菜单
+    ```js
+        gulp.task('help', function () {
+
+            console.log('	gulp Less           编译Less并且压缩css');
+
+            console.log('	gulp Css            压缩css');
+
+            console.log('	gulp CssConcat      合并压缩css');
+
+            console.log('	gulp Js             压缩混淆js');
+
+            console.log('	gulp Html           压缩html');
+
+            console.log('	gulp Image          压缩image');
+
+            console.log('	gulp clean          清空dist下的所有目录');
+
+            console.log('	gulp Watch          监视文件是否发生改变，并且自动刷新');
+
+            console.log('	gulp rev            替换路径');
+
+            console.log('	gulp easy_webpack   打包');
+
+            console.log('	gulp default        默认任务');
+
+        });
+    ```
+
+    ```html
+
+    	gulp Less           编译Less并且压缩css
+    	gulp Css            压缩css
+    	gulp CssConcat      合并压缩css
+    	gulp Js             压缩混淆js
+    	gulp Html           压缩html
+    	gulp Image          压缩image
+    	gulp clean          清空dist下的所有目录
+    	gulp Watch          监视文件是否发生改变，并且自动刷新
+    	gulp rev            替换路径
+    	gulp easy_webpack   打包
+    	gulp default        默认任务
+    	
+    ```
 
 ## Table of Contents
 - [Updating to New Releases](#updating-to-new-releases)

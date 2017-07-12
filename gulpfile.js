@@ -39,7 +39,6 @@ var gulp = require('gulp'), //本地安装gulp所用到的地方
     fileConfig = require('./FileConfig');//基础配置
 
 // 说明
-
 gulp.task('help', function () {
 
     console.log('	gulp Less           编译Less并且压缩css');
@@ -55,6 +54,12 @@ gulp.task('help', function () {
     console.log('	gulp Image          压缩image');
 
     console.log('	gulp clean          清空dist下的所有目录');
+
+    console.log('	gulp Watch          监视文件是否发生改变，并且自动刷新');
+
+    console.log('	gulp rev            替换路径');
+
+    console.log('	gulp easy_webpack   打包');
 
     console.log('	gulp default        默认任务');
 
