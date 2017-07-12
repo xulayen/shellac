@@ -4,7 +4,7 @@ var path = require('path');
 
 /* 环境信息 */
 var evr = {
-    develop: true//develop production
+    develop: true
 }
 
 
@@ -17,44 +17,32 @@ var
         Css: ['src/static/css/*.css'],
         CssConcatName: 'main.min.css',
 
-        Js: ['src/static/script/plugins/*.js'],
+        Js: ['src/static/js/*.js'],
 
         Html: ['/**.html'],
 
         Image: ['src/static/images/*.jbg', 'src/static/images/*.png'],
 
-        Less: ['src/static/less/*.less']
+        Less: ['src/static/less/*.less'],
+
+        Watch:['src./*.html','./src/**/*.js'],
+
+        dirReplacements: {
+            'src/css': 'css/',
+            'src/js': 'js/'
+        }
 
     }
 
 var output = {
-    dist: 'src/dist',
-    plugins: 'src/dist/plugins'
+    dist: 'dist/static'
 }
 
-/* 模块信息 */
-
-var modules = {
-
-    "t1": {
-
-        src: 't1',
-
-        dest: 't1',
-
-        name: 't1',
-
-        css_files: 'styles/app.less'
-
-    }
-
-};
 
 var FileConfig = function () {
     this.src = src;
     this.evr = evr;
     this.path = path;
-    this.modules = modules;
     this.output = output;
 };
 

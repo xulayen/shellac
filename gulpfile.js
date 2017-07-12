@@ -24,43 +24,79 @@ var gulp = require('gulp'), //本地安装gulp所用到的地方
     rename = require('gulp-rename'),//文件重命名
     concat = require('gulp-concat'),//文件合并
     rev = require('gulp-rev'),//更改版本号
+    clean = require('gulp-clean'),//删除
     htmlmin = require('gulp-htmlmin'),
+
+    gulpWebpack = require('gulp-webpack'),
+    webpack = require('webpack'),
+    webpackConfig = require('./webpack.config'),
+
+    connect = require('gulp-connect'),
+    runSequence = require('run-sequence').use(gulp),//队列
     uglify = require('gulp-uglify'),//混淆js
+    revCollector = require('gulp-rev-collector'),
+    watch = require('gulp-watch'),
     fileConfig = require('./FileConfig');//基础配置
+
+// 说明
+
+gulp.task('help', function () {
+
+    console.log('	gulp Less           编译Less并且压缩css');
+
+    console.log('	gulp Css            压缩css');
+
+    console.log('	gulp CssConcat      合并压缩css');
+
+    console.log('	gulp Js             压缩混淆js');
+
+    console.log('	gulp Html           压缩html');
+
+    console.log('	gulp Image          压缩image');
+
+    console.log('	gulp clean          清空dist下的所有目录');
+
+    console.log('	gulp default        默认任务');
+
+});
 
 
 //编译Less并且压缩改名*.min.css
 gulp.task('Less', function () {
-    gulp.src(fileConfig.src.Less) //该任务针对的文件
+    gulp.src(fileConfig.src.Less, {base: '.'}) //该任务针对的文件
         .pipe(rename({suffix: '.min'}))
         .pipe(less()) //该任务调用的模块
         .pipe(cssmin()) //该任务调用的模块
-        .pipe(gulp.dest(fileConfig.output.dist + '/css')); //将会在src/css下生成index.css
+        .pipe(gulp.dest(fileConfig.output.dist)); //将会在src/css下生成index.css
 });
 
 //压缩Css改名*.min.css
 gulp.task('Css', function () {
-    gulp.src(fileConfig.src.Css)
+    gulp.src(fileConfig.src.Css, {base: '.'})
         .pipe(rename({suffix: '.min'}))
         .pipe(cssmin())
-        .pipe(gulp.dest(fileConfig.output.dist + '/css'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest(fileConfig.output.dist))
 });
 
 //压缩合并Css改名*.min.css
 gulp.task('CssConcat', function () {
-    gulp.src(fileConfig.src.Css)
+    gulp.src(fileConfig.src.Css, {base: '.'})
         .pipe(rename({suffix: '.min'}))
         .pipe(cssmin())
+        .pipe(rev.manifest({merge: true}))
         .pipe(concat(fileConfig.src.CssConcatName))
-        .pipe(gulp.dest(fileConfig.output.dist + '/css'))
+        .pipe(gulp.dest(fileConfig.output.dist))
 });
 
+//压缩混淆js
 gulp.task('Js', function () {
-    return gulp.src(fileConfig.src.Js)
-        .pipe(gulp.dest(fileConfig.output.dist + '/script'))
+    return gulp.src(fileConfig.src.Js, {base: '.'})
+        .pipe(gulp.dest(fileConfig.output.dist))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest(fileConfig.output.dist + '/script'))
+        .pipe(rev.manifest({merge: true}))
+        .pipe(gulp.dest(fileConfig.output.dist))
 });
 
 //压缩html
@@ -75,15 +111,49 @@ gulp.task('Html', function () {
         minifyJS: true,
         minifyCSS: true
     };
-    return gulp.src(fileConfig.src.Html)
+    return gulp.src(fileConfig.src.Html, {base: '.'})
         .pipe(htmlmin(options))
-        .pipe(gulp.dest(fileConfig.output.dist + '/html'))
+        .pipe(gulp.dest(fileConfig.output.dist))
+});
+
+//压缩jpg png
+gulp.task('Image', function () {
+    return gulp.src(fileConfig.src.Image, {base: '.'})
+        .pipe(gulpif(fileConfig.evr.develop, imagemin()))
+        .pipe(gulp.dest(fileConfig.output.dist));
+});
+
+//清空发布目录
+gulp.task('clean', function () {
+    return gulp.src('dist/*', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('Watch', function () {
+    watch(fileConfig.src.Watch)
+        .pipe(connect.reload())
+});
+
+gulp.task('rev', function () {
+    return gulp.src(['./rev/**/*.json', './dist/index.html'])
+        .pipe(revCollector({
+            replaceReved: true,
+            dirReplacements: fileConfig.src.dirReplacements
+        }))
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('easy_webpack', function () {
+    gulp.src('./src/component/*.js')
+        .pipe(gulpWebpack(webpackConfig, webpack))
+        .pipe(gulp.dest(fileConfig.output.dist))
 });
 
 
-gulp.task('Image', function () {
-    return gulp.src(fileConfig.src.Image)
-        .pipe(gulpif(fileConfig.evr.develop, imagemin()))
-        .pipe(gulp.dest(fileConfig.src.Image + '/images'));
-})
-gulp.task('default', ['Less', 'elseTask']); //定义默认任务 elseTask为其他任务，该示例没有定义elseTask任务
+//默认执行
+gulp.task('default', function (cb) {
+    runSequence('clean', 'Css', 'Js', 'Html', 'Image', 'easy_webpack', cb)
+});
+
+
+
