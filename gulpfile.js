@@ -149,7 +149,7 @@ gulp.task('rev', function () {
 });
 
 gulp.task('easy_webpack', function () {
-    gulp.src(fileConfig.src.WebPack)
+    gulp.src('')
         .pipe(gulpWebpack(webpackConfig, webpack))
         .pipe(gulp.dest(fileConfig.output.dist))
 });
