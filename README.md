@@ -112,7 +112,190 @@ You can find the most recent version of this guide [here](https://github.com/fac
     	gulp rev            替换路径
     	gulp easy_webpack   打包
     	gulp default        默认任务
-    	
+
+    ```
+
+
+- 编译Less并且压缩改名
+    ```js
+    gulp.task('Less', function () {
+        gulp.src(fileConfig.src.Less, {base: '.'}) //该任务针对的文件
+            .pipe(rename({suffix: '.min'}))
+            .pipe(less()) //该任务调用的模块
+            .pipe(cssmin()) //该任务调用的模块
+            .pipe(gulp.dest(fileConfig.output.dist)); //将会在src/css下生成index.css
+    });
+    ```
+
+
+- 缩Css并且改名
+    ```js
+    gulp.task('Css', function () {
+        gulp.src(fileConfig.src.Css, {base: '.'})
+            .pipe(rename({suffix: '.min'}))
+            .pipe(cssmin())
+            .pipe(rev.manifest())
+            .pipe(gulp.dest(fileConfig.output.dist))
+    });
+    ```
+- 压缩合并Css改名
+    ```js
+    gulp.task('CssConcat', function () {
+        gulp.src(fileConfig.src.Css, {base: '.'})
+            .pipe(rename({suffix: '.min'}))
+            .pipe(cssmin())
+            .pipe(rev.manifest({merge: true}))
+            .pipe(concat(fileConfig.src.CssConcatName))
+            .pipe(gulp.dest(fileConfig.output.dist))
+    });
+    ```
+
+
+- 压缩混淆js
+    ```js
+    gulp.task('Js', function () {
+        return gulp.src(fileConfig.src.Js, {base: '.'})
+            .pipe(gulp.dest(fileConfig.output.dist))
+            .pipe(uglify())
+            .pipe(rename({suffix: '.min'}))
+            .pipe(rev.manifest({merge: true}))
+            .pipe(gulp.dest(fileConfig.output.dist))
+    });
+    ```
+
+
+- 压缩html
+    ```js
+    gulp.task('Html', function () {
+        var options = {
+            removeComments: true,
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeEmptyAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            minifyJS: true,
+            minifyCSS: true
+        };
+        return gulp.src(fileConfig.src.Html, {base: '.'})
+            .pipe(htmlmin(options))
+            .pipe(gulp.dest(fileConfig.output.dist))
+    });
+    ```
+
+
+- 清空发布目录
+    ```js
+    gulp.task('clean', function () {
+        return gulp.src('dist/*', {read: false})
+            .pipe(clean());
+    });
+    ```
+
+
+- 监视文件
+    ```js
+    gulp.task('Watch', function () {
+        watch(fileConfig.src.Watch)
+            .pipe(connect.reload())
+    });
+    ```
+
+
+- 替换文件路径
+    ```js
+    gulp.task('rev', function () {
+        return gulp.src(['./rev/**/*.json', './dist/index.html'])
+            .pipe(revCollector({
+                replaceReved: true,
+                dirReplacements: fileConfig.src.dirReplacements
+            }))
+            .pipe(gulp.dest('./dist/'));
+    });
+    ```
+
+
+- 打包
+    ```js
+        gulp.task('easy_webpack', function () {
+            gulp.src('./src/component/*.js')
+                .pipe(gulpWebpack(webpackConfig, webpack))
+                .pipe(gulp.dest(fileConfig.output.dist))
+        });
+
+    ```
+
+
+- 压缩jpg png
+    ```js
+    gulp.task('Image', function () {
+        return gulp.src(fileConfig.src.Image, {base: '.'})
+            .pipe(gulpif(fileConfig.evr.develop, imagemin()))
+            .pipe(gulp.dest(fileConfig.output.dist));
+    });
+    ```
+
+- 默认执行
+    ```js
+    gulp.task('default', function (cb) {
+        runSequence('clean', 'Css', 'Js', 'Html', 'Image', 'easy_webpack', cb)
+    });
+    ```
+## FileConfig.js
+    ```js
+    "use strict";
+
+    var path = require('path');
+
+    /* 环境信息 */
+    var evr = {
+        develop: true
+    }
+
+
+    /* src路径 */
+    var
+        src = {
+
+            Tpl: ['tpl/**'],
+
+            Css: ['src/static/css/*.css'],
+            CssConcatName: 'main.min.css',
+
+            Js: ['src/static/js/*.js'],
+
+            Html: ['/**.html'],
+
+            Image: ['src/static/images/*.jbg', 'src/static/images/*.png'],
+
+            Less: ['src/static/less/*.less'],
+
+            Watch:['src./*.html','./src/**/*.js'],
+
+            dirReplacements: {
+                'src/css': 'css/',
+                'src/js': 'js/'
+            }
+
+        }
+
+    var output = {
+        dist: 'dist/static'
+    }
+
+
+    var FileConfig = function () {
+        this.src = src;
+        this.evr = evr;
+        this.path = path;
+        this.output = output;
+    };
+
+    module.exports = new FileConfig();
+
+
+
+
     ```
 
 ## Table of Contents
