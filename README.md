@@ -3,15 +3,49 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-## 用到的库
-- npm install jquery --save
-- mpm install swipe --save
-- npm install -S react-router
-- npm install --save react-router@3.0.0
-- npm install superagent
+## 普通项目搭建 my-app
+- cd my-app
+- npm init
+    - name: (my-app) my-app
+    - version: (1.0.0) 1.0.0
+    - description: 我的前端工程
+    - entry point: (index.js) 入口
+    - test command: test
+    - git repository: git地址
+    - keywords: 密码
+    - author: 作者
+    - license: (ISC) 许可证
+    ```js
+        {
+          "name": "my-app",
+          "version": "1.0.0",
+          "description": "我的前端工程 ",
+          "main": "入口",
+          "scripts": {
+            "test": "test"
+          },
+          "repository": {
+            "type": "git",
+            "url": "git地址"
+          },
+          "keywords": [
+            "密码"
+          ],
+          "author": "作者",
+          "license": "ISC"
+        }
+    ```
+- npm install jquery swipe react-router react-router@3.0.0 superagent --save-dev
 - npm start
 
-## 项目搭建
+## 用到的库
+- npm install jquery --save-dev
+- mpm install swipe --save-dev
+- npm install react-router --save-dev
+- npm install react-router@3.0.0 --save-dev
+- npm install superagent --save-dev
+
+## react开源项目搭建
 - npm install -g create-react-app
 - create-react-app my-app
 - cd my-app
