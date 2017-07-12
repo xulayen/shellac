@@ -39,7 +39,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## 用到的库
 - npm install jquery --save-dev
-- mpm install swipe --save-dev
+- npm install swipe --save-dev
 - npm install react-router --save-dev
 - npm install react-router@3.0.0 --save-dev
 - npm install superagent --save-dev

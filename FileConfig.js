@@ -30,7 +30,10 @@ var
         dirReplacements: {
             'src/css': 'css/',
             'src/js': 'js/'
-        }
+        },
+        WebPack:[
+
+        ]
 
     }
 
